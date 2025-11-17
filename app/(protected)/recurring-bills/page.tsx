@@ -8,18 +8,24 @@ import { Transaction } from "@/types";
 export default function RecurringBillsPage() {
   const [bills, setBills] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-      return;
-    }
+    const fetchBills = async () => {
 
-    api.getTransactions().then((data) => {
-      setBills(data.filter((t) => t.recurring));
-      setLoading(false);
-    });
+      try {
+        const data = await api.getTransactions();
+        setBills(data.filter((t) => t.recurring));
+      } catch (error) {
+        console.error("Error fetching recurring bills:", error);
+        // Optional: set an error state to display in UI
+        setError("Failed to load recurring bills");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBills();
   }, []);
 
   if (loading) return <Spinner />;

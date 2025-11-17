@@ -10,19 +10,27 @@ import { Budget } from "@/types";
 export default function BudgetsPage() {
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-      return;
-    }
-
-    api.getBudgets().then((data) => {
+useEffect(() => {
+  const fetchBudgets = async () => {
+    
+    try {
+      const data = await api.getBudgets();
       setBudgets(data);
+    } catch (error) {
+      console.error("Error fetching budgets:", error);
+      // Optionally set an error state:
+      setError("Failed to load budgets");
+    } finally {
       setLoading(false);
-    });
-  }, []);
+    }
+  };
+
+  fetchBudgets();
+}, []);
+
 
   if (loading) return <Spinner />;
 

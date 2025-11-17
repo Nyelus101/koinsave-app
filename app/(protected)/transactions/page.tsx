@@ -10,6 +10,7 @@ import Image from "next/image";
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -42,11 +43,22 @@ export default function TransactionsPage() {
   }, []);
 
   useEffect(() => {
-    api.getTransactions().then((data) => {
-      setTransactions(data);
-      setLoading(false);
-    });
+    const fetchTransactions = async () => {
+      try {
+        const data = await api.getTransactions();
+        setTransactions(data);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+        // Optionally: set an error state here
+        setError("Failed to load transactions");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
   }, []);
+
 
   if (loading) return <Spinner />;
 

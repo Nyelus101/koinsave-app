@@ -8,18 +8,24 @@ import { Pot } from "@/types";
 export default function PotsPage() {
   const [pots, setPots] = useState<Pot[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-      return;
-    }
+    const fetchPots = async () => {
 
-    api.getPots().then((data) => {
-      setPots(data);
-      setLoading(false);
-    });
+      try {
+        const data = await api.getPots();
+        setPots(data);
+      } catch (error) {
+        console.error("Error fetching pots:", error);
+        // Optionally set an error state to show in UI
+        setError("Failed to load pots");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPots();
   }, []);
 
   if (loading) return <Spinner />;
