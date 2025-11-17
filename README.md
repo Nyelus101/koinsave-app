@@ -1,3 +1,58 @@
+Koinsave – Modern Savings & Investment Platform
+
+Koinsave is a full-stack savings and investment platform built with Next.js 15, TypeScript, Tailwind CSS, Prisma, and NextAuth. It allows users to securely save money, manage plans, track transactions, and complete billing flows via a clean, responsive interface.
+
+
+***Tech Stack
+
+Frontend: Next.js 15 (App Router), React Server Components, TypeScript, Tailwind CSS
+
+Backend: Prisma ORM, PostgreSQL, Next.js Server Actions
+
+Auth: NextAuth (email/password)
+
+Payments: Stripe (in progress)
+
+
+***Key Features
+
+Authentication: Secure signup/login with bcrypt, protected routes, and session handling.
+
+User Dashboard: Responsive view of balance, transactions, active plans, and quick actions.
+
+Transactions: Full CRUD, responsive tables with pagination, mobile-friendly card view, filtering support.
+
+Savings & Billing Flow: Multi-step plan selection with fullscreen Billing Modal and reusable modal logic.
+
+Reusable Modals: Pricing, Billing, Modify Table, and DataTableSettings, preserving design and overlay behavior.
+
+Database Modeling: Prisma models for User, Transaction, Plans, Billing, with future modules (wallet, investments, notifications).
+
+Responsive Design
+
+Mobile-friendly card views
+
+Large-screen tables with adaptive pagination
+
+
+***Developer Experience
+
+Modern /app directory
+
+Typed server actions
+
+Prisma migrations & seed scripts
+
+Reusable UI components (forms, tables, modals)
+
+
+***Upcoming Features
+
+Wallet system, Stripe payments, admin dashboard, advanced analytics, notifications, and PWA support.
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
