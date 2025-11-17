@@ -30,6 +30,8 @@ interface OverviewData {
 export default function OverviewPage() {
     const [data, setData] = useState<OverviewData | null>(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
 
     // Helper for currency formatting
     const formatCurrency = (amount: number) => `$${Math.abs(amount).toFixed(2)}`;
@@ -120,14 +122,16 @@ export default function OverviewPage() {
             });
             setLoading(false);
         })
-        .catch(error => {
-            console.error("Failed to load overview data:", error);
-            setLoading(false); // Stop loading even if there's an error
-            // Optionally, set data to null or show an error state
+        .catch(err => {
+            console.error("Failed to load overview data:", err);
++           setError("Failed to load overview data.");
++           setLoading(false);
         });
     }, []);
 
-    if (loading || !data) return <Spinner />;
+    if (loading) return <Spinner />;
+    if (error) return <div className="p-6 text-red-600">{error}</div>;
+    if (!data) return <div className="p-6 text-gray-600">No data available</div>;
 
     // Derived values for Budgets
     const totalBudgetSpent = data.budgets.reduce((sum, b) => sum + b.spent, 0);
