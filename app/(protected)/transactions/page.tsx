@@ -76,13 +76,19 @@ export default function TransactionsPage() {
             {currentData.map((t, idx) => (
               <tr key={idx} className="border-b">
                 <td className="px-4 py-2">
-                  <Image
+                  {/* <Image
                     src={`/${t.avatar}`}
                     alt={t.name}
                     width={40}  
                     height={40}  
                     className="rounded-full"
+                  /> */}
+                  <img
+                    src={`/${t.avatar}`}
+                    alt={t.name}
+                    className="w-10 h-10 rounded-full"
                   />
+
                 </td>
                 <td className="px-4 py-2">{t.name}</td>
                 <td className="px-4 py-2">{t.category}</td>
@@ -109,13 +115,20 @@ export default function TransactionsPage() {
             key={idx}
             className="border rounded-lg p-4 shadow-sm bg-white flex items-start gap-3"
           >
-            <Image
+            {/* <Image
               src={`/${t.avatar}`}
               alt={t.name}
               width={48}    
               height={48}  
               className="rounded-full"
+            /> */}
+
+            <img
+              src={`/${t.avatar}`}
+              alt={t.name}
+              className="w-12 h-12 rounded-full"
             />
+
 
             <div className="flex-1">
               <div className="flex justify-between">
